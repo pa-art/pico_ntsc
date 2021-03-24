@@ -4,6 +4,7 @@
  * Mar.24, 2021 Pa@ART modified from test_ntsc_wall_grph.c
  */
 
+
 #ifndef __MINI_GAMEPAD__
 #define __MINI_GAMEPAD__
 
