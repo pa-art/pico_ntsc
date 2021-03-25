@@ -82,6 +82,13 @@ int main() {
             }
             statec = !statec;
         }
+        // draw sin curve
+        if (countup % 100000 == 0) {
+            for (int x = 0, y = 0; x < GVRAM_W; x++) {
+                y = AMP - AMP * sin(2 * PI / GVRAM_W * x) + CHAR_H;
+                gvram_write(x, y, GDOT);
+            }
+        }
         // draw heart mark on sin curve
         if (countup % 5000 == 0) {
             hy = AMP - AMP * sin(2 * PI / GVRAM_W * hx) + CHAR_H;
