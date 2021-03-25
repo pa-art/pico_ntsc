@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
+#include "hardware/pwm.h"
+#include "hardware/irq.h"
 
 #define LED     25      // GPIO connected LED on the board
 #define MLED    (1 << LED)
@@ -55,5 +57,7 @@ void hsync( );
 void vsync ( );
 // handler for holizontal line processing
 void horizontal_line( );
+// initialize and start PWM interrupt by 64us period
+void enable_PWM_interrupt( );
 
 #endif
