@@ -349,24 +349,18 @@ int judge_me( entity *me, entity *mouse, entity *heart) {
 }
 
 int main() {
-    // initialize video and LED GPIO
-    init_video_and_led_GPIO();
     // init stdio
     stdio_init_all();
-    // init ADC
-    adc_init();
-    // enable temperature sensor
-    adc_set_temp_sensor_enabled(true);
+    // initialize video and LED GPIO
+    init_video_and_led_GPIO();
+    // initialize key GPIO
+    init_key_GPIO();
     // clear VRAM
     vram_clear();
     // initialize random seed
     init_random();
-
     // initialize and start PWM interrupt by 64us period
     enable_PWM_interrupt( );
-
-    // initialize key GPIO
-    init_key_GPIO();
 
     int countup = 0;
     int score = 0;

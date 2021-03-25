@@ -53,6 +53,11 @@ uint32_t key_scan( ) {
 
 // initialize random seed by ADC data
 void init_random( ) {
+    // init ADC
+    adc_init();
+    // enable temperature sensor
+    adc_set_temp_sensor_enabled(true);
+
     int seed_val = 0;
     for (int i = 0; i < 5; i++) {
         adc_select_input(i);
