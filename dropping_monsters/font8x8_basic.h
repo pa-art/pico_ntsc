@@ -19,7 +19,7 @@
  **/
 /**
  * modified by Pa@ART on Feb.28, 2021
- *   for NTSC signal generator
+ *   for NTSC signal generator 
  **/
 
 // Constant: font8x8_basic

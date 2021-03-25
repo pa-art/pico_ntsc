@@ -4,6 +4,7 @@
  * Mar.24, 2021 Pa@ART modified from test_ntsc_wall_grph.c
  */
 
+
 #include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
@@ -165,4 +166,26 @@ void horizontal_line( ) {
         count = 1;
     }
     return;
+}
+
+// initialize and start PWM interrupt by 64us period
+void enable_PWM_interrupt(  ) {
+
+    // GPPWM pin is the PWM output
+    gpio_set_function(GPPWM, GPIO_FUNC_PWM);
+    // Figure out which slice we just connected to the GPPWM pin
+    uint slice_num = pwm_gpio_to_slice_num(GPPWM);
+
+    // Mask our slice's IRQ output into the PWM block's single interrupt line,
+    // and register our interrupt handler
+    pwm_clear_irq(slice_num);
+    pwm_set_irq_enabled(slice_num, true);
+    irq_set_priority(PWM_IRQ_WRAP, 0xC0);   // somehow this is needed if you compile with release option
+    irq_set_exclusive_handler(PWM_IRQ_WRAP, horizontal_line);
+    irq_set_enabled(PWM_IRQ_WRAP, true); 
+
+    // Set counter wrap value to generate PWM interrupt by this value
+    pwm_set_wrap(slice_num, 7999);
+    // Load the configuration into our PWM slice, and set it running.
+    pwm_set_enabled(slice_num, true);
 }
