@@ -55,9 +55,10 @@ int main() {
     int countup = 0;
     uint32_t keys;
     char mes[VRAM_W];
-    bool state = true;
-    int x0, y0, r0, px0, py0, pr0;
-    px0 = py0 = pr0;
+    bool statec = true;
+    bool states = true;
+    int x0, y0, r0;
+    int hx, hy;
 
     while (1) {
         // monitoring process speed
@@ -66,21 +67,32 @@ int main() {
             flip_led();
         }
         // draw circle randomly 
-        if (countup % 50000 == 0) {
+        if (countup % 200000 == 0) {
             // draw message
-            gvram_strings(150, 0, "Drawing a circle", WDOT);
-            // randomly (x0, y0, r0)
-            x0 = rand() % GVRAM_W;
-            y0 = rand() % (GVRAM_H - CHAR_H) + CHAR_H;
-            r0 = rand() % (GVRAM_W / 2);
-            if (state == true) {
+            gvram_strings(50, 0, "Drawing a circle and a heart on sin curve", WDOT);
+            if (statec == true) {
+                // randomly (x0, y0, r0)
+                x0 = rand() % GVRAM_W;
+                y0 = rand() % (GVRAM_H - CHAR_H) + CHAR_H;
+                r0 = rand() % (GVRAM_W / 2);
                 // draw circle
                 draw_circle(x0, y0, r0, WDOT);
-                px0 = x0; py0 = y0; pr0 = r0;
             } else {
-                draw_circle(px0, py0, pr0, BDOT);
+                draw_circle(x0, y0, r0, BDOT);
             }
-            state = !state;
+            statec = !statec;
+        }
+        // draw heart mark on sin curve
+        if (countup % 5000 == 0) {
+            hy = AMP - AMP * sin(2 * PI / GVRAM_W * hx) + CHAR_H;
+            if (states == true) {
+                gvram_put_char(hx, hy, CHEART, WDOT);
+            } else {
+                gvram_put_char(hx, hy, ' ', WDOT);
+                hx++;
+                if (hx > GVRAM_W) hx = 0;
+            }
+            states = !states;
         }
 
         countup++;

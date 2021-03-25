@@ -15,5 +15,7 @@
 
 #define PI      3.14159265
 #define CIRSTEP 256     // step size of drawing circle
+#define CHEART  0x8     // heart mark
+#define AMP     80
 
 #endif
