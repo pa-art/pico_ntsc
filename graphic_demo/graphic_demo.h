@@ -17,5 +17,15 @@
 #define CIRSTEP 256     // step size of drawing circle
 #define CHEART  0x8     // heart mark
 #define AMP     80
+#define INV_W   16
+#define INV_H   16
+
+typedef struct {
+    uint16_t x;         // character x
+    uint16_t y;         // character y
+    uint8_t *c;         // character pattern
+    uint16_t cw;        // character width
+    uint16_t ch;        // character height
+} entity;
 
 #endif

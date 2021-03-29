@@ -50,10 +50,12 @@ void gvram_put_char( int x, int y, char c, char col ) {
     for (int i = 0; i < CHAR_H; i++) {
         cp = ascii_table[c][i];
         for (int j = 0; j < CHAR_W; j++) {
-            if ((cp & (1 << j)) != 0) {
-                gvram[x + j][y + i] = col;
-            } else {
-                gvram[x + j][y + i] = BDOT;
+            if ((x + j < GVRAM_W) && (y + i < GVRAM_H)) {
+                if ((cp & (1 << j)) != 0) {
+                    gvram[x + j][y + i] = col;
+                } else {
+                    gvram[x + j][y + i] = BDOT;
+                }
             }
         }
     }
